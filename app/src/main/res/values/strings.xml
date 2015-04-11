@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Geo Tracker</string>
+    <string name="settings_header">Welcome to GeoTracker</string>
+    <string name="lblServiceUrl">Service-Url</string>
+    <string name="lbl_service_active">Service active</string>
+
+    <string-array name="schedules_array">
+        <item>1</item>
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+    </string-array>
+</resources>
