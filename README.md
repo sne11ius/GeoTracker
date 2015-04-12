@@ -1,5 +1,25 @@
-# Geo TRacker
+# Geo Tracker
 
- - URL zum Service
- - Update-Abstand
- - (de-)aktivieren
+A simple geo tracker app for android
+
+## Wat?
+
+There are many geo tracking apps already. Why do you do this to me?
+
+This app has a unique approach:
+
+ * **Simplicity:** This app can't do anything. It will not show you a nice map of the locations recored
+   or anything similar. It will just record a location in a predefined schedule and send it to
+   server of your choice.
+ * **Run your own server:** With this app, you can (and have to) run your own webservice to send the
+   data to
+
+## How to build
+
+I don't really know. Use Android Studio and click buttons
+
+## License
+
+Yep, it's GPL v3 - get over with it ;)
+
+Also: see the [`LICENSE`](https://raw.githubusercontent.com/sne11ius/GeoTracker/master/LICENSE) file
