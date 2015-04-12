@@ -20,6 +20,7 @@ public class GeoTrackerSettings {
     private static final String PREFS_NAME = GeoTrackerSettings.class.getName() + "_Settings";
 
     private static final String KEY_SERVICE_URL = GeoTrackerSettings.class.getName() + "_service_url";
+    private static final String KEY_API_KEY = GeoTrackerSettings.class.getName() + "_api_key";
     private static final String KEY_MINUTES = GeoTrackerSettings.class.getName() + "_minutes";
 
     private SharedPreferences prefs;
@@ -48,6 +49,14 @@ public class GeoTrackerSettings {
         }
     }
 
+    public String getApiKey() {
+        return prefs.getString(KEY_API_KEY, "");
+    }
+
+    public void setApiKey(final String apiKey) {
+        prefs.edit().putString(KEY_API_KEY, apiKey).commit();
+    }
+
     public int getMinutes() {
         int minutes = prefs.getInt(KEY_MINUTES, 1);
         Log.d(TAG, "minutes loaded from settings: " + minutes);
@@ -58,4 +67,5 @@ public class GeoTrackerSettings {
         Log.d(TAG, "Updating minutes to " + minutes);
         prefs.edit().putInt(KEY_MINUTES, minutes).commit();
     }
+
 }

@@ -23,6 +23,18 @@
         android:id="@+id/txtServiceUrl"
         android:inputType="textNoSuggestions" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Api Key"
+        android:inputType="textNoSuggestions"
+        android:id="@+id/lblApiKey"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtApiKey"/>
+
     <Switch
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -1,8 +1,11 @@
 package nu.wasis.geotracker.Activity;
 
 import android.app.Activity;
+import android.app.Service;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.location.LocationManager;
+import android.location.LocationProvider;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -37,8 +40,12 @@ public class SimpleSettingsActivity extends Activity {
         tracker = new GeoTrackerAlarmReceiver();
         setContentView(R.layout.main);
         initServiceUrl();
+        initApiKey();
         initServiceActive();
         initScheduleSpinner();
+        if (!isGpsEnabled()) {
+            Toast.makeText(this, "Gps is disabled. Please enable.", Toast.LENGTH_LONG).show();
+        }
     }
 
     private void initServiceUrl() {
@@ -79,6 +86,35 @@ public class SimpleSettingsActivity extends Activity {
         });
     }
 
+    private void initApiKey() {
+        TextView apiKeyField = (TextView) findViewById(R.id.txtApiKey);
+        final GeoTrackerSettings settings = new GeoTrackerSettings(this);
+        apiKeyField.setText(settings.getApiKey());
+        final Context context = SimpleSettingsActivity.this;
+        apiKeyField.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(final CharSequence s, final int start, final int count, final int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(final CharSequence s, final int start, final int before, final int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(final Editable s) {
+                final String value = s.toString();
+                Log.d(TAG, "Api key: " + value);
+                settings.setApiKey(value);
+                if (tracker.isScheduled(context)) {
+                    tracker.schedule(context, settings.getMinutes(), settings.getServiceUrl());
+                }
+            }
+        });
+    }
+
     private void initServiceActive() {
         final Switch serviceSwitch = (Switch) findViewById(R.id.serviceActive);
         boolean isScheduled = tracker.isScheduled(this);
@@ -88,7 +124,12 @@ public class SimpleSettingsActivity extends Activity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Log.d(TAG, "Checked: " + isChecked);
                 if (isChecked) {
-                    startService(serviceSwitch);
+                    if (!isGpsEnabled()) {
+                        Toast.makeText(SimpleSettingsActivity.this, "Gps is disabled. Please enable.", Toast.LENGTH_LONG).show();
+                        serviceSwitch.setChecked(false);
+                    } else {
+                        startService(serviceSwitch);
+                    }
                 } else {
                     stopService();
                 }
@@ -161,6 +202,11 @@ public class SimpleSettingsActivity extends Activity {
                 Log.e(TAG, "No schedule selected D:");
             }
         });
+    }
+
+    private boolean isGpsEnabled() {
+        LocationManager locationManager = (LocationManager)this.getSystemService(Service.LOCATION_SERVICE);
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 
 }
