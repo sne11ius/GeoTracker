@@ -28,6 +28,9 @@ I don't really know. Use Android Studio and click buttons
 6. Set schedule
 7. Enable tracking
 
+Alternatively, you can use the service hosted @ [https://wasis.nu/mit/geotracker-service](https://wasis.nu/mit/geotracker-service).
+
+In this case, enter `https://wasis.nu/mit/geotracker-service/coordinates` as service url
 
 ## License
 
