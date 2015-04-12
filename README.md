@@ -18,6 +18,17 @@ This app has a unique approach:
 
 I don't really know. Use Android Studio and click buttons
 
+## How to use
+
+1. Install this [tracker service](https://github.com/sne11ius/geotracker-service) somewhere
+2. Create an account on your installation - you will get an api key
+3. Open app
+4. Enter the Url that points to your service
+5. Enter your api key
+6. Set schedule
+7. Enable tracking
+
+
 ## License
 
 Yep, it's GPL v3 - get over with it ;)
