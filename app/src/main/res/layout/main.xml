@@ -12,10 +12,11 @@
         android:id="@+id/settings_header" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/lblServiceUrl"
-        android:id="@+id/lblServiceUrl" />
+        android:id="@+id/lblServiceUrl"
+        android:textAlignment="center"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -26,7 +27,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Api Key"
+        android:text="Using this api Key"
         android:inputType="textNoSuggestions"
         android:id="@+id/lblApiKey"/>
 
@@ -35,33 +36,28 @@
         android:layout_height="wrap_content"
         android:id="@+id/txtApiKey"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="every"
+        android:id="@+id/textView"
+        android:layout_gravity="center"/>
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/schedule" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="minutes"
+        android:id="@+id/textView2" />
+
     <Switch
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/lbl_service_active"
         android:id="@+id/serviceActive" />
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Ausführung alle"
-            android:id="@+id/textView" />
-
-        <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/schedule" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Minuten"
-            android:id="@+id/textView2" />
-    </LinearLayout>
 
 </LinearLayout>

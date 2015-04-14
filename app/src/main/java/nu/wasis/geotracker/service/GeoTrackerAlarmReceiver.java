@@ -51,7 +51,7 @@ public class GeoTrackerAlarmReceiver extends WakefulBroadcastReceiver {
     public void stop(Context context) {
         Log.d(TAG, "Stopping");
         if (!isScheduled(context)) {
-            throw new RuntimeException("Service not running.");
+            Log.w(TAG, "Service is not running.");
         } else {
             alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
             Intent intent = new Intent(context, GeoTrackerAlarmReceiver.class);

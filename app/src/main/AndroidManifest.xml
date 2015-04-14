@@ -14,7 +14,7 @@
         android:icon="@mipmap/ic_launcher"
         android:theme="@style/AppTheme">
 
-        <uses-sdk android:minSdkVersion="11" android:targetSdkVersion="18" />
+        <uses-sdk android:minSdkVersion="16" android:targetSdkVersion="16" />
 
         <activity android:name=".Activity.SimpleSettingsActivity">
             <intent-filter>

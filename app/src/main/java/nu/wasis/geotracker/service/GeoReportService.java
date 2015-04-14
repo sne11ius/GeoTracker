@@ -85,6 +85,9 @@ public class GeoReportService extends IntentService {
                 catch (Exception e) {
                     Log.d(TAG, "Could not post location: " + e.getMessage());
                 }
+                finally {
+                    Looper.myLooper().quit();
+                }
             }
 
             @Override
@@ -102,6 +105,7 @@ public class GeoReportService extends IntentService {
                 Log.d(TAG, "onProviderDisabled: " + provider);
             }
         }, Looper.myLooper());
+        Looper.loop();
     }
 
 }
