@@ -3,14 +3,11 @@ package nu.wasis.geotracker.Activity;
 import android.app.Activity;
 import android.app.Service;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.location.LocationManager;
-import android.location.LocationProvider;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -24,7 +21,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import nu.wasis.geotracker.R;
-import nu.wasis.geotracker.service.GeoReportService;
 import nu.wasis.geotracker.service.GeoTrackerAlarmReceiver;
 import nu.wasis.geotracker.settings.GeoTrackerSettings;
 
@@ -163,6 +159,7 @@ public class SimpleSettingsActivity extends Activity {
 
     private int getScheduleMinutes() {
         Spinner spinner = (Spinner) findViewById(R.id.schedule);
+        @SuppressWarnings("unchecked")
         ArrayAdapter<CharSequence> adapter = (ArrayAdapter<CharSequence>) spinner.getAdapter();
         int selectedIndex = spinner.getSelectedItemPosition();
         String selectedText = String.valueOf(adapter.getItem(selectedIndex));
