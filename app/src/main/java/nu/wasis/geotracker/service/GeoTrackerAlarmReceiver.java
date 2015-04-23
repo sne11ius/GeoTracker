@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.support.v4.content.WakefulBroadcastReceiver;
 import android.util.Log;
 
-import java.net.URL;
 import java.util.Calendar;
 
 public class GeoTrackerAlarmReceiver extends WakefulBroadcastReceiver {
@@ -20,9 +19,9 @@ public class GeoTrackerAlarmReceiver extends WakefulBroadcastReceiver {
     private PendingIntent alarmIntent;
 
     @Override
-    public void onReceive(Context context, Intent intent) {
+    public void onReceive(final Context context, final Intent intent) {
         Log.d(TAG, "onReceive");
-        Intent service = new Intent(context, GeoReportService.class);
+        final Intent service = new Intent(context, GeoReportService.class);
 
         startWakefulService(context, service);
     }
@@ -36,7 +35,7 @@ public class GeoTrackerAlarmReceiver extends WakefulBroadcastReceiver {
         return isScheduled;
     }
 
-    public void schedule(Context context, int minutes, final URL serviceUrl) {
+    public void schedule(Context context, int minutes) {
         Log.d(TAG, "Scheduling");
         alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, GeoTrackerAlarmReceiver.class);

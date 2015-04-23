@@ -11,6 +11,7 @@ import android.os.Looper;
 import android.util.Log;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -25,7 +26,6 @@ import java.util.List;
 import nu.wasis.geotracker.settings.GeoTrackerSettings;
 
 /**
- * Created by cornelius on 11.04.15.
  */
 public class GeoReportService extends IntentService {
 
@@ -37,7 +37,7 @@ public class GeoReportService extends IntentService {
     }
 
     @Override
-    protected void onHandleIntent(Intent intent) {
+    protected void onHandleIntent(final Intent intent) {
         final Context context = this;
         Log.d(TAG, "Started");
         final GeoTrackerSettings settings = new GeoTrackerSettings(this);
@@ -48,7 +48,7 @@ public class GeoReportService extends IntentService {
             new GeoTrackerAlarmReceiver().stop(this);
             return;
         }
-        LocationManager locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        final LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             Log.e(TAG, "GPS is diabled. Stopping service.");
             new GeoTrackerAlarmReceiver().stop(this);
@@ -66,19 +66,12 @@ public class GeoReportService extends IntentService {
                         new GeoTrackerAlarmReceiver().stop(context);
                         return;
                     }
-                    HttpPost httppost = new HttpPost(serviceUrl);
-                    List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-                    nameValuePairs.add(new BasicNameValuePair("latitude", String.valueOf(location.getLatitude())));
-                    nameValuePairs.add(new BasicNameValuePair("longitude", String.valueOf(location.getLongitude())));
-                    nameValuePairs.add(new BasicNameValuePair("altitude", String.valueOf(location.getAltitude())));
-                    nameValuePairs.add(new BasicNameValuePair("accuracy", String.valueOf(location.getAccuracy())));
-                    nameValuePairs.add(new BasicNameValuePair("speed", String.valueOf(location.getSpeed())));
-                    nameValuePairs.add(new BasicNameValuePair("time", String.valueOf(location.getTime())));
-                    nameValuePairs.add(new BasicNameValuePair("apiKey", settings.getApiKey()));
-                    httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+                    final HttpPost httpPost = new HttpPost(serviceUrl);
+                    final List<NameValuePair> nameValuePairs = toNameValuePairs(location, settings.getApiKey());
+                    httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
                     Log.d(TAG, "Posting data: " + nameValuePairs);
-                    HttpResponse response = httpclient.execute(httppost);
-                    if (200 != response.getStatusLine().getStatusCode()) {
+                    final HttpResponse response = httpclient.execute(httpPost);
+                    if (HttpStatus.SC_OK != response.getStatusLine().getStatusCode()) {
                         Log.e(TAG, "Error: " + response.getStatusLine());
                     }
                 }
@@ -106,6 +99,18 @@ public class GeoReportService extends IntentService {
             }
         }, Looper.myLooper());
         Looper.loop();
+    }
+
+    private List<NameValuePair> toNameValuePairs(final Location location, final String apiKey) {
+        final List<NameValuePair> nameValuePairs = new ArrayList<>(2);
+        nameValuePairs.add(new BasicNameValuePair("latitude", String.valueOf(location.getLatitude())));
+        nameValuePairs.add(new BasicNameValuePair("longitude", String.valueOf(location.getLongitude())));
+        nameValuePairs.add(new BasicNameValuePair("altitude", String.valueOf(location.getAltitude())));
+        nameValuePairs.add(new BasicNameValuePair("accuracy", String.valueOf(location.getAccuracy())));
+        nameValuePairs.add(new BasicNameValuePair("speed", String.valueOf(location.getSpeed())));
+        nameValuePairs.add(new BasicNameValuePair("time", String.valueOf(location.getTime())));
+        nameValuePairs.add(new BasicNameValuePair("apiKey", apiKey));
+        return nameValuePairs;
     }
 
 }

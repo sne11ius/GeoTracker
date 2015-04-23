@@ -31,7 +31,7 @@ public class SimpleSettingsActivity extends Activity {
     private GeoTrackerAlarmReceiver tracker;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         tracker = new GeoTrackerAlarmReceiver();
         setContentView(R.layout.main);
@@ -45,7 +45,7 @@ public class SimpleSettingsActivity extends Activity {
     }
 
     private void initServiceUrl() {
-        TextView serviceUrlField = (TextView) findViewById(R.id.txtServiceUrl);
+        final TextView serviceUrlField = (TextView) findViewById(R.id.txtServiceUrl);
         final GeoTrackerSettings settings = new GeoTrackerSettings(this);
         if (null != settings.getServiceUrl()) {
             serviceUrlField.setText(settings.getServiceUrl().toString());
@@ -68,7 +68,7 @@ public class SimpleSettingsActivity extends Activity {
                     Log.d(TAG, "A valid serviceUrl: " + serviceUrl);
                     settings.setServiceUrl(serviceUrl);
                     if (tracker.isScheduled(context)) {
-                        tracker.schedule(context, settings.getMinutes(), settings.getServiceUrl());
+                        tracker.schedule(context, settings.getMinutes());
                     }
                 } catch (MalformedURLException e) {
                     Log.d(TAG, "Not a valid url: " + value);
@@ -83,7 +83,7 @@ public class SimpleSettingsActivity extends Activity {
     }
 
     private void initApiKey() {
-        TextView apiKeyField = (TextView) findViewById(R.id.txtApiKey);
+        final TextView apiKeyField = (TextView) findViewById(R.id.txtApiKey);
         final GeoTrackerSettings settings = new GeoTrackerSettings(this);
         apiKeyField.setText(settings.getApiKey());
         final Context context = SimpleSettingsActivity.this;
@@ -105,7 +105,7 @@ public class SimpleSettingsActivity extends Activity {
                 Log.d(TAG, "Api key: " + value);
                 settings.setApiKey(value);
                 if (tracker.isScheduled(context)) {
-                    tracker.schedule(context, settings.getMinutes(), settings.getServiceUrl());
+                    tracker.schedule(context, settings.getMinutes());
                 }
             }
         });
@@ -113,7 +113,7 @@ public class SimpleSettingsActivity extends Activity {
 
     private void initServiceActive() {
         final Switch serviceSwitch = (Switch) findViewById(R.id.serviceActive);
-        boolean isScheduled = tracker.isScheduled(this);
+        final boolean isScheduled = tracker.isScheduled(this);
         serviceSwitch.setChecked(isScheduled);
         serviceSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -137,10 +137,9 @@ public class SimpleSettingsActivity extends Activity {
     private void startService(final Switch serviceSwitch) {
         final int minutes = getScheduleMinutes();
         try {
-            final URL url = getUrl();
-            tracker.schedule(SimpleSettingsActivity.this, minutes, url);
-            String text = "Service started :D";
-            Toast.makeText(SimpleSettingsActivity.this, text, Toast.LENGTH_SHORT).show();
+            getUrl();
+            tracker.schedule(SimpleSettingsActivity.this, minutes);
+            Toast.makeText(SimpleSettingsActivity.this, "Service started :D", Toast.LENGTH_SHORT).show();
         } catch (MalformedURLException e) {
             serviceSwitch.setChecked(false);
             Log.d(TAG, "Cannot start service. No valid url.");
@@ -158,51 +157,51 @@ public class SimpleSettingsActivity extends Activity {
     }
 
     private int getScheduleMinutes() {
-        Spinner spinner = (Spinner) findViewById(R.id.schedule);
+        final Spinner spinner = (Spinner) findViewById(R.id.schedule);
         @SuppressWarnings("unchecked")
-        ArrayAdapter<CharSequence> adapter = (ArrayAdapter<CharSequence>) spinner.getAdapter();
-        int selectedIndex = spinner.getSelectedItemPosition();
-        String selectedText = String.valueOf(adapter.getItem(selectedIndex));
+        final ArrayAdapter<CharSequence> adapter = (ArrayAdapter<CharSequence>) spinner.getAdapter();
+        final int selectedIndex = spinner.getSelectedItemPosition();
+        final String selectedText = String.valueOf(adapter.getItem(selectedIndex));
         return Integer.parseInt(selectedText);
     }
 
     private URL getUrl() throws MalformedURLException {
-        TextView serviceUrlField = (TextView) findViewById(R.id.txtServiceUrl);
+        final TextView serviceUrlField = (TextView) findViewById(R.id.txtServiceUrl);
         final String url = String.valueOf(serviceUrlField.getText());
         return new URL(url);
     }
 
     private void initScheduleSpinner() {
         final Spinner spinner = (Spinner) findViewById(R.id.schedule);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.schedules_array, android.R.layout.simple_spinner_item);
+        final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.schedules_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         final SimpleSettingsActivity context = SimpleSettingsActivity.this;
         final GeoTrackerSettings settings = new GeoTrackerSettings(context);
-        int minutes = settings.getMinutes();
-        int targetPosition = adapter.getPosition(String.valueOf(minutes));
+        final int minutes = settings.getMinutes();
+        final int targetPosition = adapter.getPosition(String.valueOf(minutes));
         spinner.setSelection(targetPosition);
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected(final AdapterView<?> parent, final View view, final int position, final long id) {
                 final int selectedValue = getScheduleMinutes();
                 settings.setMinutes(selectedValue);
                 if (tracker.isScheduled(context)) {
                     tracker.stop(context);
-                    tracker.schedule(context, settings.getMinutes(), settings.getServiceUrl());
+                    tracker.schedule(context, settings.getMinutes());
                 }
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+            public void onNothingSelected(final AdapterView<?> parent) {
                 Log.e(TAG, "No schedule selected D:");
             }
         });
     }
 
     private boolean isGpsEnabled() {
-        LocationManager locationManager = (LocationManager)this.getSystemService(Service.LOCATION_SERVICE);
+        final LocationManager locationManager = (LocationManager) this.getSystemService(Service.LOCATION_SERVICE);
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 
