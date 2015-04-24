@@ -9,37 +9,40 @@ import android.util.Log;
 
 import java.util.Calendar;
 
+import nu.wasis.geotracker.settings.GeoTrackerSettings;
+
 public class GeoTrackerAlarmReceiver extends WakefulBroadcastReceiver {
 
     private static final String TAG = GeoTrackerAlarmReceiver.class.getName();
 
     private static final int REQUEST_CODE = 1337;
 
-    private AlarmManager alarmManager;
-    private PendingIntent alarmIntent;
-
     @Override
     public void onReceive(final Context context, final Intent intent) {
-        Log.d(TAG, "onReceive");
-        final Intent service = new Intent(context, GeoReportService.class);
+        final GeoTrackerSettings settings = new GeoTrackerSettings(context);
+        if (settings.getShouldRun()) {
+            Log.d(TAG, "Activating service");
+            final Intent service = new Intent(context, GeoReportService.class);
 
-        startWakefulService(context, service);
+            startWakefulService(context, service);
+        } else {
+            Log.d(TAG, "No run intended.");
+        }
     }
 
-    public boolean isScheduled(final Context context) {
-        alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(context, GeoTrackerAlarmReceiver.class);
-        alarmIntent = PendingIntent.getBroadcast(context, REQUEST_CODE, intent, PendingIntent.FLAG_NO_CREATE);
+    public static boolean isScheduled(final Context context) {
+        final Intent intent = new Intent(context, GeoTrackerAlarmReceiver.class);
+        final PendingIntent alarmIntent = PendingIntent.getBroadcast(context, REQUEST_CODE, intent, PendingIntent.FLAG_NO_CREATE);
         boolean isScheduled = null != alarmIntent;
         Log.d(TAG, "isScheduled: " + isScheduled);
         return isScheduled;
     }
 
-    public void schedule(Context context, int minutes) {
+    public static void schedule(final Context context, int minutes) {
         Log.d(TAG, "Scheduling");
-        alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(context, GeoTrackerAlarmReceiver.class);
-        alarmIntent = PendingIntent.getBroadcast(context, REQUEST_CODE, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        final AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        final Intent intent = new Intent(context, GeoTrackerAlarmReceiver.class);
+        final PendingIntent alarmIntent = PendingIntent.getBroadcast(context, REQUEST_CODE, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
@@ -47,14 +50,14 @@ public class GeoTrackerAlarmReceiver extends WakefulBroadcastReceiver {
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis() + 100, 1000 * 60 * minutes, alarmIntent);
     }
 
-    public void stop(Context context) {
+    public static void stop(final Context context) {
         Log.d(TAG, "Stopping");
         if (!isScheduled(context)) {
             Log.w(TAG, "Service is not running.");
         } else {
-            alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-            Intent intent = new Intent(context, GeoTrackerAlarmReceiver.class);
-            alarmIntent = PendingIntent.getBroadcast(context, REQUEST_CODE, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+            final AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            final Intent intent = new Intent(context, GeoTrackerAlarmReceiver.class);
+            final PendingIntent alarmIntent = PendingIntent.getBroadcast(context, REQUEST_CODE, intent, PendingIntent.FLAG_CANCEL_CURRENT);
             if (alarmManager!= null) {
                 alarmManager.cancel(alarmIntent);
                 alarmIntent.cancel();

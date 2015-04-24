@@ -1,0 +1,9 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+sourceCompatibility = 1.6
+mainClassName = "nu.wasis.geotracker.daogenerator.GeoTrackerDaoGenerator"
+
+dependencies {
+    compile 'de.greenrobot:greendao-generator:1.3.1'
+}
