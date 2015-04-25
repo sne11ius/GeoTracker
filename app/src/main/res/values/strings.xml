@@ -4,6 +4,11 @@
     <string name="lblServiceUrl">Send coords to</string>
     <string name="lbl_service_active">Yes, do it</string>
 
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="action_websearch">Search the web!</string>
+    <string name="app_not_available">No browser available.</string>
+
     <string-array name="schedules_array">
         <item>1</item>
         <item>5</item>
@@ -11,5 +16,11 @@
         <item>15</item>
         <item>30</item>
         <item>60</item>
+    </string-array>
+
+    <string-array name="planets_array">
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
     </string-array>
 </resources>

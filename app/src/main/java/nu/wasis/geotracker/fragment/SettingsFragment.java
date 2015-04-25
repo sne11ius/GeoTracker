@@ -1,14 +1,17 @@
-package nu.wasis.geotracker.activity;
+package nu.wasis.geotracker.fragment;
 
-import android.app.Activity;
+import android.app.Fragment;
 import android.app.Service;
 import android.content.Context;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
@@ -24,32 +27,39 @@ import nu.wasis.geotracker.R;
 import nu.wasis.geotracker.service.GeoTrackerAlarmReceiver;
 import nu.wasis.geotracker.settings.GeoTrackerSettings;
 
-public class SimpleSettingsActivity extends Activity {
-
-    private static final String TAG = SimpleSettingsActivity.class.getName();
+/**
+ */
+public class SettingsFragment extends Fragment {
+    private static final String TAG = SettingsFragment.class.getName();
 
     private GeoTrackerSettings settings;
 
     @Override
-    protected void onCreate(final Bundle savedInstanceState) {
+    public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        settings = new GeoTrackerSettings(this);
-        setContentView(R.layout.fragment_settings);
-        initServiceUrl();
-        initApiKey();
-        initServiceActive();
-        initScheduleSpinner();
-        if (!isGpsEnabled()) {
-            Toast.makeText(this, "GPS is disabled. Please enable.", Toast.LENGTH_LONG).show();
-        }
+        settings = new GeoTrackerSettings(getActivity());
     }
 
-    private void initServiceUrl() {
-        final TextView serviceUrlField = (TextView) findViewById(R.id.txtServiceUrl);
+    @Nullable
+    @Override
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
+        final View rootView = inflater.inflate(R.layout.fragment_settings, container, false);
+        initServiceUrl(rootView);
+        initApiKey(rootView);
+        initServiceActive(rootView);
+        initScheduleSpinner(rootView);
+        if (!isGpsEnabled()) {
+            Toast.makeText(getActivity(), "GPS is disabled. Please enable.", Toast.LENGTH_LONG).show();
+        }
+        return rootView;
+    }
+
+    private void initServiceUrl(View rootView) {
+        final TextView serviceUrlField = (TextView) rootView.findViewById(R.id.txtServiceUrl);
         if (null != settings.getServiceUrl()) {
             serviceUrlField.setText(settings.getServiceUrl().toString());
         }
-        final Context context = SimpleSettingsActivity.this;
+        final Context context = getActivity();
         serviceUrlField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(final CharSequence s, final int start, final int count, final int after) {
@@ -81,10 +91,10 @@ public class SimpleSettingsActivity extends Activity {
         });
     }
 
-    private void initApiKey() {
-        final TextView apiKeyField = (TextView) findViewById(R.id.txtApiKey);
+    private void initApiKey(View rootView) {
+        final TextView apiKeyField = (TextView) rootView.findViewById(R.id.txtApiKey);
         apiKeyField.setText(settings.getApiKey());
-        final Context context = SimpleSettingsActivity.this;
+        final Context context = getActivity();
         apiKeyField.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -109,9 +119,9 @@ public class SimpleSettingsActivity extends Activity {
         });
     }
 
-    private void initServiceActive() {
-        final Switch serviceSwitch = (Switch) findViewById(R.id.serviceActive);
-        final boolean isScheduled = GeoTrackerAlarmReceiver.isScheduled(this);
+    private void initServiceActive(final View rootView) {
+        final Switch serviceSwitch = (Switch) rootView.findViewById(R.id.serviceActive);
+        final boolean isScheduled = GeoTrackerAlarmReceiver.isScheduled(getActivity());
         serviceSwitch.setChecked(isScheduled);
         serviceSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -119,10 +129,10 @@ public class SimpleSettingsActivity extends Activity {
                 Log.d(TAG, "Checked: " + isChecked);
                 if (isChecked) {
                     if (!isGpsEnabled()) {
-                        Toast.makeText(SimpleSettingsActivity.this, "GPS is disabled. Please enable.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "GPS is disabled. Please enable.", Toast.LENGTH_LONG).show();
                         serviceSwitch.setChecked(false);
                     } else {
-                        startService(serviceSwitch);
+                        startService(serviceSwitch, rootView);
                     }
                 } else {
                     stopService();
@@ -131,32 +141,32 @@ public class SimpleSettingsActivity extends Activity {
         });
     }
 
-    private void startService(final Switch serviceSwitch) {
-        final int minutes = getScheduleMinutes();
+    private void startService(final Switch serviceSwitch, View rootView) {
+        final int minutes = getScheduleMinutes(rootView);
         try {
-            getUrl();
+            getUrl(rootView);
             settings.setShouldRun(true);
-            GeoTrackerAlarmReceiver.schedule(SimpleSettingsActivity.this, minutes);
-            Toast.makeText(SimpleSettingsActivity.this, "Service started :D", Toast.LENGTH_SHORT).show();
+            GeoTrackerAlarmReceiver.schedule(getActivity(), minutes);
+            Toast.makeText(getActivity(), "Service started :D", Toast.LENGTH_SHORT).show();
         } catch (MalformedURLException e) {
             serviceSwitch.setChecked(false);
             Log.d(TAG, "Cannot start service. No valid url.");
-            Toast.makeText(SimpleSettingsActivity.this, "No valid URL provided.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "No valid URL provided.", Toast.LENGTH_SHORT).show();
         }
     }
 
     private void stopService() {
-        if (!GeoTrackerAlarmReceiver.isScheduled(this)) {
+        if (!GeoTrackerAlarmReceiver.isScheduled(getActivity())) {
             Log.d(TAG, "Service not running, nothing to do.");
         } else {
             settings.setShouldRun(false);
-            GeoTrackerAlarmReceiver.stop(this);
+            GeoTrackerAlarmReceiver.stop(getActivity());
         }
-        Toast.makeText(SimpleSettingsActivity.this, "Service stopped.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "Service stopped.", Toast.LENGTH_SHORT).show();
     }
 
-    private int getScheduleMinutes() {
-        final Spinner spinner = (Spinner) findViewById(R.id.schedule);
+    private int getScheduleMinutes(View rootView) {
+        final Spinner spinner = (Spinner) rootView.findViewById(R.id.schedule);
         @SuppressWarnings("unchecked")
         final ArrayAdapter<CharSequence> adapter = (ArrayAdapter<CharSequence>) spinner.getAdapter();
         final int selectedIndex = spinner.getSelectedItemPosition();
@@ -164,18 +174,18 @@ public class SimpleSettingsActivity extends Activity {
         return Integer.parseInt(selectedText);
     }
 
-    private URL getUrl() throws MalformedURLException {
-        final TextView serviceUrlField = (TextView) findViewById(R.id.txtServiceUrl);
+    private URL getUrl(View rootView) throws MalformedURLException {
+        final TextView serviceUrlField = (TextView) rootView.findViewById(R.id.txtServiceUrl);
         final String url = String.valueOf(serviceUrlField.getText());
         return new URL(url);
     }
 
-    private void initScheduleSpinner() {
-        final Spinner spinner = (Spinner) findViewById(R.id.schedule);
-        final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.schedules_array, android.R.layout.simple_spinner_item);
+    private void initScheduleSpinner(final View rootView) {
+        final Spinner spinner = (Spinner) rootView.findViewById(R.id.schedule);
+        final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.schedules_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-        final SimpleSettingsActivity context = SimpleSettingsActivity.this;
+        final Context context = getActivity();
         final int minutes = settings.getMinutes();
         final int targetPosition = adapter.getPosition(String.valueOf(minutes));
         spinner.setSelection(targetPosition);
@@ -183,7 +193,7 @@ public class SimpleSettingsActivity extends Activity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(final AdapterView<?> parent, final View view, final int position, final long id) {
-                final int selectedValue = getScheduleMinutes();
+                final int selectedValue = getScheduleMinutes(rootView);
                 settings.setMinutes(selectedValue);
                 if (GeoTrackerAlarmReceiver.isScheduled(context)) {
                     GeoTrackerAlarmReceiver.stop(context);
@@ -199,7 +209,7 @@ public class SimpleSettingsActivity extends Activity {
     }
 
     private boolean isGpsEnabled() {
-        final LocationManager locationManager = (LocationManager) this.getSystemService(Service.LOCATION_SERVICE);
+        final LocationManager locationManager = (LocationManager) getActivity().getSystemService(Service.LOCATION_SERVICE);
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 

@@ -32,14 +32,14 @@ public class GeoTrackerLocationListener implements LocationListener {
         try {
             EventBus.getDefault().post(new LocationTrackedEvent(context, new GeoLocation(location)));
             //final HttpClient httpclient = new DefaultHttpClient();
-            //final String serviceUrl = null == settings.getServiceUrl() ? null : settings.getServiceUrl().toString();
+            //final String serviceUrl = null == fragment_settings.getServiceUrl() ? null : fragment_settings.getServiceUrl().toString();
             //if (null == serviceUrl) {
             //    Log.e(TAG, "Service url is null, stopping the service.");
             //    GeoTrackerAlarmReceiver.stop(context);
             //    return;
             //}
             //final HttpPost httpPost = new HttpPost(serviceUrl);
-            //final List<NameValuePair> nameValuePairs = toNameValuePairs(location, settings.getApiKey());
+            //final List<NameValuePair> nameValuePairs = toNameValuePairs(location, fragment_settings.getApiKey());
             //httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             //Log.d(TAG, "Posting data: " + nameValuePairs);
             //final HttpResponse response = httpclient.execute(httpPost);

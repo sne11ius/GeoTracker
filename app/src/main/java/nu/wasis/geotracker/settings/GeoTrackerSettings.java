@@ -27,7 +27,7 @@ public class GeoTrackerSettings {
 
     public URL getServiceUrl() {
         final String serviceUrl = prefs.getString(KEY_SERVICE_URL, null);
-        Log.d(TAG, "serviceUrl loaded from settings: " + serviceUrl);
+        Log.d(TAG, "serviceUrl loaded from fragment_settings: " + serviceUrl);
         try {
             return null != serviceUrl ? new URL(serviceUrl) : null;
         } catch (MalformedURLException e) {
@@ -55,7 +55,7 @@ public class GeoTrackerSettings {
 
     public int getMinutes() {
         int minutes = prefs.getInt(KEY_MINUTES, 1);
-        Log.d(TAG, "minutes loaded from settings: " + minutes);
+        Log.d(TAG, "minutes loaded from fragment_settings: " + minutes);
         return minutes;
     }
 
