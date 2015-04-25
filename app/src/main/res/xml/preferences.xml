@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="@string/prefs_category_service_title">
+        <EditTextPreference
+            android:key="@string/KEY_ENDPOINT_URL"
+            android:title="@string/endpoint_url_title"
+            android:summary="@string/endpoint_url_summary"
+            android:defaultValue="https://wasis.nu/mit/geotracker-service/coordinates"
+            />
+
+        <EditTextPreference
+            android:key="@string/KEY_API_KEY"
+            android:title="@string/api_key_title"
+            android:summary="@string/api_key_summary"
+            android:defaultValue=""
+            />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/prefs_category_intervals">
+        <ListPreference
+            android:key="@string/KEY_GPS_TRACK_INTERVAL"
+            android:title="@string/location_update_interval_title"
+            android:summary="@string/location_update_interval_summary"
+            android:entries="@array/gps_update_interval_titles"
+            android:entryValues="@array/gps_update_interval_values"
+            android:defaultValue="60"
+            />
+        <ListPreference
+            android:key="@string/KEY_SYNC_INTERVAL"
+            android:title="@string/sync_interval_title"
+            android:summary="@string/sync_interval_summary"
+            android:entries="@array/sync_interval_titles"
+            android:entryValues="@array/sync_interval_values"
+            android:defaultValue="3600"
+            />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/prefs_category_common">
+        <SwitchPreference
+            android:key="@string/KEY_SERVICE_ACTIVE"
+            android:title="@string/service_active_title"
+            android:summary="@string/service_active_summary"
+            android:defaultValue="false"
+            />
+    </PreferenceCategory>
+
+</PreferenceScreen>

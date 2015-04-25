@@ -8,14 +8,41 @@
     <string name="drawer_close">Close navigation drawer</string>
     <string name="action_websearch">Search the web!</string>
     <string name="app_not_available">No browser available.</string>
+    <string name="endpoint_url_title">Service URL</string>
+    <string name="endpoint_url_summary">URL of the tracking service to use</string>
+    <string name="api_key_title">API key</string>
+    <string name="api_key_summary">API key for the tracking service</string>
+    <string name="prefs_category_service_title">Service</string>
+    <string name="prefs_category_intervals">Update Intervals</string>
+    <string name="location_update_interval_title">Location Update Interval</string>
+    <string name="location_update_interval_summary">The interval between GPS location updates</string>
+    <string name="sync_interval_title">Sync Interval</string>
+    <string name="sync_interval_summary">The interval to sync with the tracker service</string>
+    <string name="service_active_title">Service active</string>
+    <string name="service_active_summary">Controls whether the tracker is actually running</string>
+    <string name="prefs_category_common">Common</string>
 
-    <string-array name="schedules_array">
-        <item>1</item>
-        <item>5</item>
-        <item>10</item>
-        <item>15</item>
-        <item>30</item>
-        <item>60</item>
+    <string-array name="gps_update_interval_titles">
+        <item>15 seconds</item>
+        <item>30 seconds</item>
+        <item>1 minute</item>
+        <item>5 minutes</item>
+        <item>10 minutes</item>
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>60 minutes</item>
+    </string-array>
+
+    <string-array name="sync_interval_titles">
+        <item>5 minutes</item>
+        <item>10 minutes</item>
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>1 hour</item>
+        <item>2 hours</item>
+        <item>6 hours</item>
+        <item>12 hours</item>
+        <item>24 hours</item>
     </string-array>
 
     <string-array name="views">

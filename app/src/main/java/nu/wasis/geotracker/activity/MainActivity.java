@@ -20,7 +20,7 @@ import android.widget.Toast;
 import nu.wasis.geotracker.R;
 import nu.wasis.geotracker.fragment.LocationsFragment;
 import nu.wasis.geotracker.fragment.MapFragment;
-import nu.wasis.geotracker.fragment.SettingsFragment;
+import nu.wasis.geotracker.fragment.PrefsFragment;
 
 public class MainActivity extends Activity {
     private DrawerLayout drawerLayout;
@@ -140,7 +140,7 @@ public class MainActivity extends Activity {
             final FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
         } else if (2 == position) {
-            final Fragment fragment = new SettingsFragment();
+            final Fragment fragment = new PrefsFragment();//new SettingsFragment();
             final FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
         }

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="KEY_ENDPOINT_URL">service_url</string>
+    <string name="KEY_API_KEY">api_key</string>
+    <string name="KEY_GPS_TRACK_INTERVAL">gps_track_interval</string>
+    <string name="KEY_SYNC_INTERVAL">sync_interval</string>
+    <string name="KEY_SERVICE_ACTIVE">service_active</string>
+</resources>

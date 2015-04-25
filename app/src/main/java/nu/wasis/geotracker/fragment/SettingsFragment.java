@@ -182,7 +182,7 @@ public class SettingsFragment extends Fragment {
 
     private void initScheduleSpinner(final View rootView) {
         final Spinner spinner = (Spinner) rootView.findViewById(R.id.schedule);
-        final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.schedules_array, android.R.layout.simple_spinner_item);
+        final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.gps_update_interval_titles, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         final Context context = getActivity();
