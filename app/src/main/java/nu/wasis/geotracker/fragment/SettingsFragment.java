@@ -1,3 +1,4 @@
+/*
 package nu.wasis.geotracker.fragment;
 
 import android.app.Fragment;
@@ -27,8 +28,6 @@ import nu.wasis.geotracker.R;
 import nu.wasis.geotracker.service.GeoTrackerAlarmReceiver;
 import nu.wasis.geotracker.settings.GeoTrackerSettings;
 
-/**
- */
 public class SettingsFragment extends Fragment {
     private static final String TAG = SettingsFragment.class.getName();
 
@@ -214,3 +213,4 @@ public class SettingsFragment extends Fragment {
     }
 
 }
+*/

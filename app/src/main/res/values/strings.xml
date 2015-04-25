@@ -21,6 +21,7 @@
     <string name="service_active_title">Service active</string>
     <string name="service_active_summary">Controls whether the tracker is actually running</string>
     <string name="prefs_category_common">Common</string>
+    <string name="error_gps_disabled">GPS is disabled. Please enable.</string>
 
     <string-array name="gps_update_interval_titles">
         <item>15 seconds</item>

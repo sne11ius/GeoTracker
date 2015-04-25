@@ -8,6 +8,7 @@
             android:title="@string/endpoint_url_title"
             android:summary="@string/endpoint_url_summary"
             android:defaultValue="https://wasis.nu/mit/geotracker-service/coordinates"
+            android:inputType="text|textNoSuggestions"
             />
 
         <EditTextPreference
@@ -15,6 +16,7 @@
             android:title="@string/api_key_title"
             android:summary="@string/api_key_summary"
             android:defaultValue=""
+            android:inputType="text|textNoSuggestions"
             />
     </PreferenceCategory>
 

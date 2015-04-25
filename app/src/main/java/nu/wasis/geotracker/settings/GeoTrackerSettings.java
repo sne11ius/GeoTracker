@@ -8,25 +8,24 @@ import android.util.Log;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import nu.wasis.geotracker.R;
+
 /**
  */
 public class GeoTrackerSettings {
 
     private static final String TAG = GeoTrackerSettings.class.getName();
 
-    private static final String KEY_SERVICE_URL = GeoTrackerSettings.class.getName() + "_service_url";
-    private static final String KEY_API_KEY = GeoTrackerSettings.class.getName() + "_api_key";
-    private static final String KEY_MINUTES = GeoTrackerSettings.class.getName() + "_minutes";
-    private static final String KEY_SHOULD_RUN = GeoTrackerSettings.class.getName() + "_shoud_run";
-
     private final SharedPreferences prefs;
+    private Context context;
 
     public GeoTrackerSettings(final Context context) {
+        this.context = context;
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
     public URL getServiceUrl() {
-        final String serviceUrl = prefs.getString(KEY_SERVICE_URL, null);
+        final String serviceUrl = prefs.getString(getString(R.string.KEY_ENDPOINT_URL), null);
         Log.d(TAG, "serviceUrl loaded from fragment_settings: " + serviceUrl);
         try {
             return null != serviceUrl ? new URL(serviceUrl) : null;
@@ -36,42 +35,24 @@ public class GeoTrackerSettings {
         }
     }
 
-    public void setServiceUrl(final URL serviceUrl) {
-        Log.d(TAG, "Updating serviceUrl to " + (null == serviceUrl ? null : serviceUrl.toString()));
-        if (null == serviceUrl) {
-            prefs.edit().remove(KEY_SERVICE_URL);
-        } else {
-            prefs.edit().putString(KEY_SERVICE_URL, serviceUrl.toString()).apply();
-        }
-    }
-
     public String getApiKey() {
-        return prefs.getString(KEY_API_KEY, "");
+        return prefs.getString(getString(R.string.KEY_API_KEY), "");
     }
 
-    public void setApiKey(final String apiKey) {
-        prefs.edit().putString(KEY_API_KEY, apiKey).apply();
+    public int getGpsInterval() {
+        return Integer.parseInt(prefs.getString(getString(R.string.KEY_GPS_TRACK_INTERVAL), "60"));
     }
 
-    public int getMinutes() {
-        int minutes = prefs.getInt(KEY_MINUTES, 1);
-        Log.d(TAG, "minutes loaded from fragment_settings: " + minutes);
-        return minutes;
-    }
-
-    public void setMinutes(final int minutes) {
-        Log.d(TAG, "Updating minutes to " + minutes);
-        prefs.edit().putInt(KEY_MINUTES, minutes).apply();
+    public int getSyncInterval() {
+        return Integer.parseInt(prefs.getString(getString(R.string.KEY_SYNC_INTERVAL), "3600"));
     }
 
     public Boolean getShouldRun() {
-        boolean shouldRun = prefs.getBoolean(KEY_SHOULD_RUN, false);
-        Log.d(TAG, "Should run: " + shouldRun);
-        return shouldRun;
+        return prefs.getBoolean(getString(R.string.KEY_SERVICE_ACTIVE), false);
     }
 
-    public void setShouldRun(final Boolean shouldRun) {
-        prefs.edit().putBoolean(KEY_SHOULD_RUN, shouldRun).apply();
+    private String getString(int id) {
+        return context.getString(id);
     }
 
 }

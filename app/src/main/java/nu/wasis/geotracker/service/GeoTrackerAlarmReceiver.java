@@ -38,16 +38,17 @@ public class GeoTrackerAlarmReceiver extends WakefulBroadcastReceiver {
         return isScheduled;
     }
 
-    public static void schedule(final Context context, int minutes) {
+    public static void schedule(final Context context) {
         Log.d(TAG, "Scheduling");
         final AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         final Intent intent = new Intent(context, GeoTrackerAlarmReceiver.class);
         final PendingIntent alarmIntent = PendingIntent.getBroadcast(context, REQUEST_CODE, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
-        Calendar calendar = Calendar.getInstance();
+        final Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
+        final int gpsInterval = new GeoTrackerSettings(context).getGpsInterval();
 
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis() + 100, 1000 * 60 * minutes, alarmIntent);
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis() + 100, 1000 * gpsInterval, alarmIntent);
     }
 
     public static void stop(final Context context) {
