@@ -89,7 +89,9 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="appcompat-v7-22.0.0" level="project" />
     <orderEntry type="library" exported="" name="eventbus-2.4.0" level="project" />
+    <orderEntry type="library" exported="" name="android.joda-2.7.2" level="project" />
     <orderEntry type="library" exported="" name="greendao-1.3.7" level="project" />
+    <orderEntry type="library" exported="" name="joda-time-2.7-no-tzdb" level="project" />
     <orderEntry type="library" exported="" name="support-v4-22.0.0" level="project" />
     <orderEntry type="library" exported="" name="Android-SimpleLocation" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-22.0.0" level="project" />

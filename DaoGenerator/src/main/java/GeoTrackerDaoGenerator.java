@@ -13,6 +13,7 @@ public class GeoTrackerDaoGenerator {
 
     private static void addGeoLocation(final Schema schema) {
         final Entity geoLocation = schema.addEntity("GeoLocation");
+        geoLocation.implementsInterface("nu.wasis.geotracker.model.DomainObject");
         geoLocation.addIdProperty();
         geoLocation.addDoubleProperty("latitude").notNull();
         geoLocation.addDoubleProperty("longitude").notNull();
