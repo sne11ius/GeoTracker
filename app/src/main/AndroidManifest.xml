@@ -17,12 +17,6 @@
         android:icon="@mipmap/ic_launcher"
         android:theme="@android:style/Theme.Holo.Light.DarkActionBar">
 
-        <!--activity android:name=".activity.SimpleSettingsActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity-->
         <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -31,6 +25,7 @@
         </activity>
 
         <service android:name=".service.GeoReportService" />
+        <service android:name=".service.SyncDataService"/>
 
         <receiver android:name=".service.GeoTrackerAlarmReceiver">
             <intent-filter>
