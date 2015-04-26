@@ -23,4 +23,8 @@ public class Logger {
     public void warn(final String message) {
         Log.w(className, message);
     }
+
+    public void error(final String message) {
+        Log.e(className, message);
+    }
 }
