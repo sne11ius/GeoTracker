@@ -35,6 +35,7 @@
     </string-array>
 
     <string-array name="sync_interval_titles">
+        <item>15 seconds</item>
         <item>5 minutes</item>
         <item>10 minutes</item>
         <item>15 minutes</item>

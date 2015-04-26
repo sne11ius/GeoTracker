@@ -1,14 +1,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="nu.wasis.geotracker"
-    android:versionCode="1"
-    android:versionName="1.0">
+          package="nu.wasis.geotracker"
+          android:versionCode="1"
+          android:versionName="1.0">
 
-    <uses-sdk android:minSdkVersion="16" android:targetSdkVersion="16" />
+    <uses-sdk
+        android:minSdkVersion="16"
+        android:targetSdkVersion="16"/>
 
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <application
         android:name=".application.GeoTrackerApp"
@@ -24,10 +26,15 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".service.GeoReportService" />
-        <service android:name=".service.SyncDataService"/>
+        <service android:name=".service.LocationTrackerService"/>
+        <service android:name=".service.LocationSyncService"/>
 
-        <receiver android:name=".service.GeoTrackerAlarmReceiver">
+        <receiver android:name=".service.LocationTrackerAlarmReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".service.LocationSyncAlarmReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>

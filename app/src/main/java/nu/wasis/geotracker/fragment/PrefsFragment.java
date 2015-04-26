@@ -13,8 +13,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 import nu.wasis.geotracker.R;
-import nu.wasis.geotracker.service.GeoTrackerAlarmReceiver;
 import nu.wasis.geotracker.settings.GeoTrackerSettings;
+import nu.wasis.geotracker.util.Scheduler;
 
 /**
  */
@@ -46,9 +46,9 @@ public class PrefsFragment extends PreferenceFragment implements SharedPreferenc
                     return false;
                 }
                 if (shouldActivate) {
-                    GeoTrackerAlarmReceiver.schedule(getActivity());
+                    Scheduler.schedule(getActivity());
                 } else {
-                    GeoTrackerAlarmReceiver.stop(getActivity());
+                    Scheduler.stop(getActivity());
                 }
                 return true;
             }
@@ -63,8 +63,8 @@ public class PrefsFragment extends PreferenceFragment implements SharedPreferenc
                         public void run() {
                             try {
                                 Thread.sleep(500);
-                                GeoTrackerAlarmReceiver.stop(getActivity());
-                                GeoTrackerAlarmReceiver.schedule(getActivity());
+                                Scheduler.stop(getActivity());
+                                Scheduler.schedule(getActivity());
                             } catch (final InterruptedException e) {
                                 // Should not happen (tm)
                             }

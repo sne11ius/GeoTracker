@@ -26,7 +26,7 @@ public class GeoTrackerSettings {
 
     public URL getServiceUrl() {
         final String serviceUrl = prefs.getString(getString(R.string.KEY_ENDPOINT_URL), null);
-        Log.d(TAG, "serviceUrl loaded from fragment_settings: " + serviceUrl);
+        //Log.d(TAG, "serviceUrl loaded from fragment_settings: " + serviceUrl);
         try {
             return null != serviceUrl ? new URL(serviceUrl) : null;
         } catch (MalformedURLException e) {
