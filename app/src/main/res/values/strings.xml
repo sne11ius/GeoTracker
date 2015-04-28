@@ -1,8 +1,5 @@
 <resources>
     <string name="app_name">Geo Tracker</string>
-    <string name="settings_header">Welcome to GeoTracker</string>
-    <string name="lblServiceUrl">Send coords to</string>
-    <string name="lbl_service_active">Yes, do it</string>
 
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
@@ -48,8 +45,7 @@
     </string-array>
 
     <string-array name="views">
-        <item>Map</item>
-        <item>History</item>
+        <item>Activation</item>
         <item>Settings</item>
     </string-array>
 </resources>

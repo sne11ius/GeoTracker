@@ -8,9 +8,7 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-import android.preference.SwitchPreference;
 import android.util.Log;
-import android.widget.Toast;
 
 import nu.wasis.geotracker.R;
 import nu.wasis.geotracker.settings.GeoTrackerSettings;
@@ -36,6 +34,7 @@ public class PrefsFragment extends PreferenceFragment implements SharedPreferenc
 
     private void addChangeListeners() {
         PreferenceManager.getDefaultSharedPreferences(getActivity()).registerOnSharedPreferenceChangeListener(this);
+        /*
         final SwitchPreference serviceSwitch = (SwitchPreference) findPreference(getString(R.string.KEY_SERVICE_ACTIVE));
         serviceSwitch.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
@@ -53,6 +52,7 @@ public class PrefsFragment extends PreferenceFragment implements SharedPreferenc
                 return true;
             }
         });
+        */
         final ListPreference gpsUpdateIntervalPreference = (ListPreference) findPreference(getString(R.string.KEY_GPS_TRACK_INTERVAL));
         gpsUpdateIntervalPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
@@ -79,14 +79,15 @@ public class PrefsFragment extends PreferenceFragment implements SharedPreferenc
     @Override
     public void onPause() {
         super.onPause();
-        removeChangeListeners();
+        //removeChangeListeners();
     }
-
+    /*
     private void removeChangeListeners() {
         PreferenceManager.getDefaultSharedPreferences(getActivity()).unregisterOnSharedPreferenceChangeListener(this);
         SwitchPreference serviceSwitch = (SwitchPreference) findPreference(getString(R.string.KEY_SERVICE_ACTIVE));
         serviceSwitch.setOnPreferenceChangeListener(null);
     }
+    */
 
     @Override
     public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, final String key) {

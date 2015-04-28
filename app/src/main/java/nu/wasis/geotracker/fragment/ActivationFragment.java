@@ -11,11 +11,11 @@ import nu.wasis.geotracker.R;
 
 /**
  */
-public class MapFragment extends Fragment {
+public class ActivationFragment extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_map, container, false);
+        return inflater.inflate(R.layout.fragment_activation, container, false);
     }
 }

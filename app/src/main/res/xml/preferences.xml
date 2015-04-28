@@ -40,7 +40,7 @@
             />
     </PreferenceCategory>
 
-    <PreferenceCategory
+    <!--PreferenceCategory
         android:title="@string/prefs_category_common">
         <SwitchPreference
             android:key="@string/KEY_SERVICE_ACTIVE"
@@ -48,6 +48,6 @@
             android:summary="@string/service_active_summary"
             android:defaultValue="false"
             />
-    </PreferenceCategory>
+    </PreferenceCategory-->
 
 </PreferenceScreen>

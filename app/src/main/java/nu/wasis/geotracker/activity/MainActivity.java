@@ -18,8 +18,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import nu.wasis.geotracker.R;
-import nu.wasis.geotracker.fragment.LocationsFragment;
-import nu.wasis.geotracker.fragment.MapFragment;
+import nu.wasis.geotracker.fragment.ActivationFragment;
 import nu.wasis.geotracker.fragment.PrefsFragment;
 
 public class MainActivity extends Activity {
@@ -103,17 +102,6 @@ public class MainActivity extends Activity {
         // Handle action buttons
         switch (item.getItemId()) {
             case R.id.action_websearch:
-                // create intent to perform web search for this planet
-                /*
-                Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
-                intent.putExtra(SearchManager.QUERY, getActionBar().getTitle());
-                // catch event that there's no activity to handle intent
-                if (intent.resolveActivity(getPackageManager()) != null) {
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(this, R.string.app_not_available, Toast.LENGTH_LONG).show();
-                }
-                */
                 Toast.makeText(this, "Now searching the web!", Toast.LENGTH_LONG).show();
                 return true;
             default:
@@ -132,14 +120,10 @@ public class MainActivity extends Activity {
     private void selectItem(int position) {
         // update the activity_main content by replacing fragments
         if (0 == position) {
-            final Fragment fragment = new MapFragment();
+            final Fragment fragment = new ActivationFragment();
             final FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
         } else if (1 == position) {
-            final Fragment fragment = new LocationsFragment();
-            final FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
-        } else if (2 == position) {
             final Fragment fragment = new PrefsFragment();//new SettingsFragment();
             final FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
