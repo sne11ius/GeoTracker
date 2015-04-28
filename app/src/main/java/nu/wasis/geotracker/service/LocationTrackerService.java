@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.LocationManager;
 import android.os.Looper;
-import android.util.Log;
 
 /**
  */
@@ -15,12 +14,10 @@ public class LocationTrackerService extends IntentService {
 
     public LocationTrackerService() {
         super(LocationTrackerService.class.getName());
-        Log.d(TAG, "Created");
     }
 
     @Override
     protected void onHandleIntent(final Intent intent) {
-        Log.d(TAG, "Started");
         //final GeoTrackerSettings settings = new GeoTrackerSettings(this);
         //final URL url = settings.getServiceUrl();
         ////Log.d(TAG, "Service url: " + (null == url ? null : url.toString()));

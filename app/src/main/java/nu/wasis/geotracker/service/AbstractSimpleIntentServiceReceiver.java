@@ -9,7 +9,6 @@ import android.support.v4.content.WakefulBroadcastReceiver;
 
 import java.util.Calendar;
 
-import nu.wasis.geotracker.settings.GeoTrackerSettings;
 import nu.wasis.geotracker.util.logging.Logger;
 
 /**
@@ -22,21 +21,7 @@ public abstract class AbstractSimpleIntentServiceReceiver<T extends IntentServic
 
     @Override
     public void onReceive(final Context context, final Intent intent) {
-        final GeoTrackerSettings settings = new GeoTrackerSettings(context);
-        if (settings.getShouldRun()) {
-            //LOG.debug("Activating " + getServiceClass().getName());
-            startWakefulService(context, new Intent(context, getServiceClass()));
-        } else {
-            LOG.debug("No run intended.");
-        }
-    }
-
-    private static boolean isScheduled(final Context context, final Class<?> derivedClass, final int requestCode) {
-        final Intent intent = new Intent(context, derivedClass);
-        final PendingIntent alarmIntent = PendingIntent.getBroadcast(context, requestCode, intent, PendingIntent.FLAG_NO_CREATE);
-        boolean isScheduled = null != alarmIntent;
-        //LOG.debug("isScheduled: " + isScheduled);
-        return isScheduled;
+        startWakefulService(context, new Intent(context, getServiceClass()));
     }
 
     protected static void schedule(final Context context, final Class<?> derivedClass, final long intervalMillis, final int requestCode) {
@@ -50,8 +35,13 @@ public abstract class AbstractSimpleIntentServiceReceiver<T extends IntentServic
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis() + 100, intervalMillis, alarmIntent);
     }
 
-    protected static void stop(final Context context, final Class<?> derivedClass, final int requestCode) {
-        //LOG.debug("Stopping");
+    protected static boolean isScheduled(final Context context, final Class<? extends AbstractSimpleIntentServiceReceiver> derivedClass, final int requestCode) {
+        final Intent intent = new Intent(context, derivedClass);
+        final PendingIntent alarmIntent = PendingIntent.getBroadcast(context, requestCode, intent, PendingIntent.FLAG_NO_CREATE);
+        return null != alarmIntent;
+    }
+
+    protected static void stop(final Context context, final Class<? extends AbstractSimpleIntentServiceReceiver> derivedClass, final int requestCode) {
         if (!isScheduled(context, derivedClass, requestCode)) {
             LOG.warn("Service is not running.");
         } else {

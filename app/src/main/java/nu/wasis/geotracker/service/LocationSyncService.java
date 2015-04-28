@@ -29,7 +29,6 @@ public class LocationSyncService extends IntentService {
 
     public LocationSyncService() {
         super(LocationSyncService.class.getName());
-        LOG.debug("Created");
     }
 
     @Override

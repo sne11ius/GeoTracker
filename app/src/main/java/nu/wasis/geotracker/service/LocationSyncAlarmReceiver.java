@@ -15,9 +15,9 @@ public class LocationSyncAlarmReceiver extends AbstractSimpleIntentServiceReceiv
         return LocationSyncService.class;
     }
 
-    //public static boolean isScheduled(final Context context) {
-    //    return isScheduled(context, LocationSyncAlarmReceiver.class);
-    //}
+    public static boolean isScheduled(final Context context) {
+        return isScheduled(context, LocationSyncAlarmReceiver.class, REQUEST_CODE);
+    }
 
     public static void schedule(final Context context) {
         schedule(context, LocationSyncAlarmReceiver.class, 1000 * new GeoTrackerSettings(context).getSyncInterval(), REQUEST_CODE);

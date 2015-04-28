@@ -47,8 +47,20 @@ public class GeoTrackerSettings {
         return Integer.parseInt(prefs.getString(getString(R.string.KEY_SYNC_INTERVAL), "3600"));
     }
 
-    public Boolean getShouldRun() {
-        return prefs.getBoolean(getString(R.string.KEY_SERVICE_ACTIVE), false);
+    public Boolean isTrackingServiceActive() {
+        return prefs.getBoolean(getString(R.string.KEY_TRACKING_SERVICE_ACTIVE), false);
+    }
+
+    public void setTrackingServiceActive(final boolean trackingServiceActive) {
+        prefs.edit().putBoolean(getString(R.string.KEY_TRACKING_SERVICE_ACTIVE), trackingServiceActive);
+    }
+
+    public boolean isSyncServiceActive() {
+        return prefs.getBoolean(getString(R.string.KEY_SYNC_SERVICE_ACTIVE), false);
+    }
+
+    public void setSyncServiceActive(final boolean syncServiceActive) {
+        prefs.edit().putBoolean(getString(R.string.KEY_SYNC_SERVICE_ACTIVE), syncServiceActive);
     }
 
     private String getString(int id) {
