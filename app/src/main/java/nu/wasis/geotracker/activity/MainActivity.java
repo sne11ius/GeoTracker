@@ -10,8 +10,10 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -41,7 +43,20 @@ public class MainActivity extends Activity {
         // set a custom shadow that overlays the activity_main content when the drawer opens
         drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         // set up the drawer's list view with items and click listener
-        drawerList.setAdapter(new ArrayAdapter<>(this, R.layout.drawer_list_item, viewTitles));
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.drawer_list_item, R.id.text, viewTitles) {
+            @Override
+            public View getView(final int position, final View convertView, final ViewGroup parent) {
+                final View v = super.getView(position, convertView, parent);
+                final ImageView icon = (ImageView) v.findViewById(R.id.icon);
+                if (0 == position) {
+                    icon.setImageDrawable(getResources().getDrawable(R.drawable.activation));
+                } else {
+                    icon.setImageDrawable(getResources().getDrawable(R.drawable.settings));
+                }
+                return v;
+            }
+        };
+        drawerList.setAdapter(arrayAdapter);
         drawerList.setOnItemClickListener(new DrawerItemClickListener());
 
         // enable ActionBar app icon to behave as action to toggle nav drawer
