@@ -78,6 +78,7 @@ public class ActivationFragment extends Fragment {
                 if (!isGpsEnabled()) {
                     Toast.makeText(getActivity(), getString(R.string.error_gps_disabled), Toast.LENGTH_LONG).show();
                     buttonView.setChecked(false);
+                    buttonView.requestLayout();
                 } else {
                     LocationTrackerAlarmReceiver.schedule(getActivity());
                 }
