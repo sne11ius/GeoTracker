@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_name">Geo Tracker</string>
+
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="action_websearch">Search the web!</string>
+    <string name="app_not_available">No browser available.</string>
+    <string name="endpoint_url_title">Service URL</string>
+    <string name="endpoint_url_summary">URL des Tracking-Service</string>
+    <string name="api_key_title">API key</string>
+    <string name="api_key_summary">API key für den Tracking-Service</string>
+    <string name="prefs_category_service_title">Service</string>
+    <string name="prefs_category_intervals">Aktualisierung</string>
+    <string name="location_update_interval_title">Ortungsinterval</string>
+    <string name="location_update_interval_summary">Der Abstand zwischen zwei GPS-Ortungen</string>
+    <string name="sync_interval_title">Sync-Interval</string>
+    <string name="sync_interval_summary">Interval für die Synchronisation mit dem Tracking-Service</string>
+    <string name="service_active_title">Service aktiv</string>
+    <string name="service_active_summary">Steuert, ob der Service aktiv ist</string>
+    <string name="prefs_category_common">Allgemein</string>
+    <string name="error_gps_disabled">GPS ist deaktiviert. Bitte aktivieren.</string>
+    <string name="tracking_service_active_title">Tracking-Service</string>
+    <string name="sync_service_active_title">Synchronisierung</string>
+    <string name="activation_main_heading">GPS und Synchronisierung können getrennt aktiviert werden - wähle weise.</string>
+
+    <string-array name="gps_update_interval_titles">
+        <item>15 Sekunden</item>
+        <item>30 Sekunden</item>
+        <item>1 Minuten</item>
+        <item>5 Minuten</item>
+        <item>10 Minuten</item>
+        <item>15 Minuten</item>
+        <item>30 Minuten</item>
+        <item>60 Minuten</item>
+    </string-array>
+
+    <string-array name="sync_interval_titles">
+        <item>15 Sekunden</item>
+        <item>5 Minuten</item>
+        <item>10 Minuten</item>
+        <item>15 Minuten</item>
+        <item>30 Minuten</item>
+        <item>1 Stunde</item>
+        <item>2 Stunden</item>
+        <item>6 Stunden</item>
+        <item>12 Stunden</item>
+        <item>24 Stunden</item>
+    </string-array>
+
+    <string-array name="views">
+        <item>Aktivierung</item>
+        <item>Einstellungen</item>
+    </string-array>
+</resources>
