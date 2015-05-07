@@ -30,7 +30,7 @@ I don't really know. Use Android Studio and click buttons
 
 Alternatively, you can use the service hosted @ [https://wasis.nu/mit/geotracker-service](https://wasis.nu/mit/geotracker-service).
 
-In this case, enter `https://wasis.nu/mit/geotracker-service/coordinates` as service url
+In this case, enter `https://wasis.nu/mit/geotracker-service/coordinates` as service url.
 
 ## License
 
